@@ -1,0 +1,611 @@
+{
+	"info": {
+		"_postman_id": "7ca47e68-5e9a-4474-af9f-309e87e76e61",
+		"name": "Finix",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28316998"
+	},
+	"item": [
+		{
+			"name": "Finix-Authorization",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "USmcnw7emMSbRZ7naYoZjKFi",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "cec5e00a-005d-43e6-86ad-e825cc17166b",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Finix-Version",
+						"value": "2022-02-01"
+					}
+				],
+				"url": {
+					"raw": "https://finix.sandbox-payments-api.com/",
+					"protocol": "https",
+					"host": [
+						"finix",
+						"sandbox-payments-api",
+						"com"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Finix-Create Auth",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "cec5e00a-005d-43e6-86ad-e825cc17166b",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "USmcnw7emMSbRZ7naYoZjKFi",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/hal+json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Finix-Version",
+						"value": "2022-02-01"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"amount\": 100,\n    \"currency\": \"USD\",\n    \"merchant\": \"MUjgrtTzZm3C1LL33DaASsyK\",\n    \"source\": \"PI7SwpK5RMhfhbWSzzgkT9Rh\",\n    \"tags\": {\n      \"order_number\": \"21DFASJSAKAS\"\n    }\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://finix.sandbox-payments-api.com/authorizations",
+					"protocol": "https",
+					"host": [
+						"finix",
+						"sandbox-payments-api",
+						"com"
+					],
+					"path": [
+						"authorizations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Finix- Transfers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test (\"Transfer_Response_Code_Validation\", function ()\r",
+							"\r",
+							"{\r",
+							"\r",
+							"pm.response.to.have.status(201);\r",
+							"\r",
+							"}\r",
+							"\r",
+							");\r",
+							"\r",
+							"const jdata=pm.response.json();\r",
+							"pm.test (\"Transfer_ResponseBody_State_Message_Validation\", function ()\r",
+							"\r",
+							"{\r",
+							"\r",
+							"pm.expect(jdata.state).to.eql(\"SUCCEEDED\");\r",
+							"\r",
+							"}\r",
+							"\r",
+							");\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test (\"Transfer_Header_validation\", function ()\r",
+							"\r",
+							"{\r",
+							"\r",
+							"pm.expect(pm.response.headers.has('content-Type').true);\r",
+							"\r",
+							"}\r",
+							"\r",
+							");\r",
+							"\r",
+							"\r",
+							"pm.test (\"Transfer_Cookies_validation\", function ()\r",
+							"\r",
+							"{\r",
+							"\r",
+							"pm.expect(pm.response.cookies.has('Language').true);\r",
+							"\r",
+							"}\r",
+							"\r",
+							");\r",
+							"\r",
+							"pm.test (\"Transfer_ResponseTime_Validation\", function ()\r",
+							"\r",
+							"{\r",
+							"\r",
+							"pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"\r",
+							"}\r",
+							"\r",
+							");\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "cec5e00a-005d-43e6-86ad-e825cc17166b",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "USmcnw7emMSbRZ7naYoZjKFi",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/hal+json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Finix-Version",
+						"value": "2022-02-01"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"amount\": 501,\n    \"currency\": \"USD\",\n    \"merchant\": \"MUjgrtTzZm3C1LL33DaASsyK\",\n    \"source\": \"PI7SwpK5RMhfhbWSzzgkT9Rh\",\n    \"tags\": {\n      \"test\": \"sale\"\n    }\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://finix.sandbox-payments-api.com/transfers?",
+					"protocol": "https",
+					"host": [
+						"finix",
+						"sandbox-payments-api",
+						"com"
+					],
+					"path": [
+						"transfers"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Finix-Fetch-Transfer",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "cec5e00a-005d-43e6-86ad-e825cc17166b",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "USmcnw7emMSbRZ7naYoZjKFi",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Finix-Version",
+						"value": "2022-02-01"
+					}
+				],
+				"url": {
+					"raw": "https://finix.sandbox-payments-api.com/transfers/TRmRfVuYnq8iLak7B5Tsmckw",
+					"protocol": "https",
+					"host": [
+						"finix",
+						"sandbox-payments-api",
+						"com"
+					],
+					"path": [
+						"transfers",
+						"TRmRfVuYnq8iLak7B5Tsmckw"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Finix-Transfer-Refund",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "cec5e00a-005d-43e6-86ad-e825cc17166b",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "USmcnw7emMSbRZ7naYoZjKFi",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Finix-Version",
+						"value": "2022-02-01"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"refund_amount\": 501,\n    \"tags\": {\n      \"test\": \"refund\"\n    }\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://finix.sandbox-payments-api.com/transfers/TRmRfVuYnq8iLak7B5Tsmckw/reversals",
+					"protocol": "https",
+					"host": [
+						"finix",
+						"sandbox-payments-api",
+						"com"
+					],
+					"path": [
+						"transfers",
+						"TRmRfVuYnq8iLak7B5Tsmckw",
+						"reversals"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Finix-List-Dispute",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "USsRhsHYZGBPnQw8CByJyEQW",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "8a14c2f9-d94b-4c72-8f5c-a62908e5b30e",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Finix-Version",
+						"value": "2022-02-01"
+					}
+				],
+				"url": {
+					"raw": "https://finix.sandbox-payments-api.com/disputes/",
+					"protocol": "https",
+					"host": [
+						"finix",
+						"sandbox-payments-api",
+						"com"
+					],
+					"path": [
+						"disputes",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Finix-Fetch-Dispute",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "USsRhsHYZGBPnQw8CByJyEQW",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "8a14c2f9-d94b-4c72-8f5c-a62908e5b30e",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Finix-Version",
+						"value": "2022-02-01"
+					}
+				],
+				"url": {
+					"raw": "https://finix.sandbox-payments-api.com/disputes/DIs7yQRkHDdMYhurzYz72SFk",
+					"protocol": "https",
+					"host": [
+						"finix",
+						"sandbox-payments-api",
+						"com"
+					],
+					"path": [
+						"disputes",
+						"DIs7yQRkHDdMYhurzYz72SFk"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Finix-List-Devices",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "cec5e00a-005d-43e6-86ad-e825cc17166b",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "USmcnw7emMSbRZ7naYoZjKFi",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Finix-Version",
+						"value": "2022-02-01"
+					}
+				],
+				"url": {
+					"raw": "https://finix.sandbox-payments-api.com/devices",
+					"protocol": "https",
+					"host": [
+						"finix",
+						"sandbox-payments-api",
+						"com"
+					],
+					"path": [
+						"devices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Finix-List-Fees",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "cec5e00a-005d-43e6-86ad-e825cc17166b",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "USmcnw7emMSbRZ7naYoZjKFi",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Finix-Version",
+						"value": "2022-02-01"
+					}
+				],
+				"url": {
+					"raw": "https://finix.sandbox-payments-api.com/fee_profiles",
+					"protocol": "https",
+					"host": [
+						"finix",
+						"sandbox-payments-api",
+						"com"
+					],
+					"path": [
+						"fee_profiles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Finix-Payment-card-creation",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "cec5e00a-005d-43e6-86ad-e825cc17166b",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "USmcnw7emMSbRZ7naYoZjKFi",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/hal+json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Finix-Version",
+						"value": "2022-02-01"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"address\": {\n      \"city\": \"Toronto\",\n      \"country\": \"CANADA\",\n      \"line1\": \"900 Metro Center Blv\",\n      \"postal_code\": \"M2N6H8\",\n      \"region\": \"ON\"\n    },\n    \"expiration_month\": 03,\n    \"expiration_year\": 2025,\n    \"identity\": \"IDoMuARoEhaCkD6tyYNniKGW\",\n    \"name\": \"Amber Trantow\",\n    \"number\": \"5453327254939356\",\n    \"security_code\": \"882\",\n    \"type\": \"PAYMENT_CARD\"\n  }\n\n\n\n  ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://finix.sandbox-payments-api.com/payment_instruments",
+					"protocol": "https",
+					"host": [
+						"finix",
+						"sandbox-payments-api",
+						"com"
+					],
+					"path": [
+						"payment_instruments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Finix-Payment-card-List",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "cec5e00a-005d-43e6-86ad-e825cc17166b",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "USmcnw7emMSbRZ7naYoZjKFi",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Finix-Version",
+						"value": "2022-02-01"
+					}
+				],
+				"url": {
+					"raw": "https://finix.sandbox-payments-api.com/payment_instruments",
+					"protocol": "https",
+					"host": [
+						"finix",
+						"sandbox-payments-api",
+						"com"
+					],
+					"path": [
+						"payment_instruments"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "UN",
+			"value": "USmcnw7emMSbRZ7naYoZjKFi"
+		},
+		{
+			"key": "PSW",
+			"value": "cec5e00a-005d-43e6-86ad-e825cc17166b"
+		}
+	]
+}
